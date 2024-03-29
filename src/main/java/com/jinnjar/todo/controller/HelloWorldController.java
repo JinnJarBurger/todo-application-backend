@@ -3,6 +3,7 @@ package com.jinnjar.todo.controller;
 import com.jinnjar.todo.model.HelloWorld;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/")
 public class HelloWorldController {
 
-    @GetMapping
-    public HelloWorld showHelloWorld() {
-        return new HelloWorld("Hello World!");
+    @GetMapping("{name}")
+    public HelloWorld showHelloWorld(@PathVariable String name) {
+//        throw new RuntimeException("Damn Son It's An Error!");
+        return new HelloWorld("Hello World! " + name);
     }
 }
