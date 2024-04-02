@@ -1,6 +1,7 @@
 package com.jinnjar.todo.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * adnan
@@ -16,14 +17,14 @@ public class Todo {
 
     private Date targetDate;
 
-    private boolean isDone;
+    private boolean done;
 
-    public Todo(long id, String username, String description, Date targetDate, boolean isDone) {
+    public Todo(long id, String username, String description, Date targetDate, boolean done) {
         this.id = id;
         this.username = username;
         this.description = description;
         this.targetDate = targetDate;
-        this.isDone = isDone;
+        this.done = done;
     }
 
     public long getId() {
@@ -59,10 +60,23 @@ public class Todo {
     }
 
     public boolean isDone() {
-        return isDone;
+        return done;
     }
 
     public void setDone(boolean done) {
-        isDone = done;
+        this.done = done;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Todo todo = (Todo) o;
+        return id == todo.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, description, targetDate, done);
     }
 }
