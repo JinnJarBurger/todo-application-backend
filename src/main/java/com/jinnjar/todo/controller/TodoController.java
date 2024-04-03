@@ -3,6 +3,7 @@ package com.jinnjar.todo.controller;
 import com.jinnjar.todo.model.Todo;
 import com.jinnjar.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,27 @@ public class TodoController {
         return todoService.findAll();
     }
 
+    @GetMapping("/{username}/todos/{id}")
+    public Todo getTodo(@PathVariable String username,
+                        @PathVariable Long id) {
+
+        return todoService.findById(id);
+    }
+
+    @PutMapping("/{username}/todos/{id}")
+    public ResponseEntity<Todo> updateTodo(@PathVariable String username,
+                                           @PathVariable Long id,
+                                           @RequestBody Todo todo) {
+
+        return new ResponseEntity<>(todoService.saveOrUpdate(todo), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{username}/todos/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable String username,
                                            @PathVariable Long id) {
 
         Todo todo = todoService.deleteById(id);
 
-        return todo == null ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        return todo == null ? ResponseEntity.notFound().build() : ResponseEntity.noContent().build();
     }
 }
