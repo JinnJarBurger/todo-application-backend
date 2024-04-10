@@ -14,8 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
  * adnan
  * 4/6/2024
  */
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SpringSecurityConfigurationBasicAuth {
 
     @Bean
