@@ -1,5 +1,8 @@
 package com.jinnjar.todo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +19,12 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Todo {
 
-    private long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String username;
 
@@ -33,7 +39,7 @@ public class Todo {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         Todo todo = (Todo) other;
-        return id == todo.id;
+        return Objects.equals(id, todo.id);
     }
 
     @Override

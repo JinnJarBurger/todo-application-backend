@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class TodoService {
 
-    private static int idCounter = 0;
+    private static Long idCounter = 0L;
 
     private static final List<Todo> todos = new ArrayList<>(List.of(
             new Todo(++idCounter, "JinnJar", "Check the stove", new Date(), false),
