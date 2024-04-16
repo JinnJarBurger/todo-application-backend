@@ -25,14 +25,14 @@ public class TodoController {
 
     @GetMapping("/{username}/todos")
     public List<Todo> getAllTodo(@PathVariable String username) {
-        return todoService.findAll();
+        return todoService.findByUsername(username);
     }
 
     @GetMapping("/{username}/todos/{id}")
     public Todo getTodo(@PathVariable String username,
                         @PathVariable Long id) {
 
-        return todoService.findById(id);
+        return todoService.findByUsernameAndId(username, id);
     }
 
     @PostMapping("/{username}/todos")

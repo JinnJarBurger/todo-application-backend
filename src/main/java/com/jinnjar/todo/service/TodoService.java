@@ -1,6 +1,8 @@
 package com.jinnjar.todo.service;
 
 import com.jinnjar.todo.model.Todo;
+import com.jinnjar.todo.repository.TodoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,43 +16,33 @@ import java.util.List;
 @Service
 public class TodoService {
 
-    private static Long idCounter = 0L;
-
-    private static final List<Todo> todos = new ArrayList<>(List.of(
-            new Todo(++idCounter, "JinnJar", "Check the stove", new Date(), false),
-            new Todo(++idCounter, "Adnan", "Go to the barber today", new Date(), false),
-            new Todo(++idCounter, "Tonu", "Complete the springboot task", new Date(), true)
-    ));
+    @Autowired
+    private TodoRepository todoRepository;
 
     public List<Todo> findAll() {
-        return todos;
+        return todoRepository.findAll();
+    }
+
+    public List<Todo> findByUsername(String username) {
+        return todoRepository.findByUsername(username);
     }
 
     public Todo findById(Long id) {
-        return todos.stream()
-                .filter(todo -> todo.getId() == id)
-                .findFirst()
-                .orElse(null);
+        return todoRepository.findById(id).orElse(null);
+    }
+
+    public Todo findByUsernameAndId(String username, Long id) {
+        return todoRepository.findByUsernameAndId(username, id).orElse(null);
     }
 
     public Todo saveOrUpdate(Todo todo) {
-        if (todo.getId() == 0) {
-            todo.setId(++idCounter);
-            todos.add(todo);
-        } else {
-            todos.remove(todo);
-            todos.add(todo);
-        }
-
-        return todo;
+        return todoRepository.save(todo);
     }
 
     public Todo deleteById(Long id) {
         Todo todo = findById(id);
 
-        if (todo == null) return null;
-
-        todos.remove(todo);
+        todoRepository.delete(todo);
 
         return todo;
     }
