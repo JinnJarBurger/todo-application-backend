@@ -39,6 +39,7 @@ public class TodoController {
     public ResponseEntity<Void> saveTodo(@PathVariable String username,
                                          @RequestBody Todo todo) {
 
+        todo.setUsername(username);
         Todo createdTodo = todoService.saveOrUpdate(todo);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
